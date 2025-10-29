@@ -4,7 +4,7 @@ import { RegistrationPage } from './fixtures';
     const fields = [
       {
         locator: (page: Page): Locator => page.locator('.v-text-field__slot').getByLabel("E-mail"),
-        name: "Email",
+        name: "E-mail",
         text: "newMail@ya.ru",
       },
       {
