@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { RegistrationPage } from './fixtures';
-import { email, familyName, name, surname, birthDate, gender, citizenship, emailValue, nameValue, 
-        surnameValue, birthDateValue, genderValue, citizenshipValue, warningFieldName } from './fixtures';
+import { RegistrationPage, userData, labels, warnings } from './fixtures';
 
 test.describe('Позитивные тесты_форма регистрации', () => {
    let registrationPage: RegistrationPage;
@@ -55,24 +53,24 @@ test.describe('Негативные тесты_форма регистрации
 
 test('Проверка поля Имя', async ({ page }) => {
  //ввести цифры
- await registrationPage.textField.getByLabel(name).fill("23456777")
+ await registrationPage.textField.getByLabel(labels.name).fill("23456777")
 
  //валидация ворнинга
- await expect(registrationPage.fieldNameWarning.filter({hasText: warningFieldName})).toBeVisible();  
+ await expect(registrationPage.fieldNameWarning.filter({hasText: warnings.name})).toBeVisible();  
     
- await registrationPage.textField.getByLabel(name).fill("");
+ await registrationPage.textField.getByLabel(labels.name).fill("");
 
  //ввести английские буквы
- await registrationPage.textField.getByLabel(name).fill("asdsdsfdgfgff");
+ await registrationPage.textField.getByLabel(labels.name).fill("asdsdsfdgfgff");
 
  //валидация ворнинга
- await expect(registrationPage.fieldNameWarning.filter({hasText: warningFieldName})).toBeVisible(); 
+ await expect(registrationPage.fieldNameWarning.filter({hasText: warnings.name})).toBeVisible(); 
     
  //ввести символы
- await registrationPage.textField.getByLabel(name).fill("№%?*");
+ await registrationPage.textField.getByLabel(labels.name).fill("№%?*");
 
  //валидация ворнинга
- await expect(registrationPage.fieldNameWarning.filter({hasText: warningFieldName})).toBeVisible(); 
+ await expect(registrationPage.fieldNameWarning.filter({hasText: warnings.name})).toBeVisible(); 
     
  //нет ограничения на min и max количество символов 
   }
@@ -80,17 +78,17 @@ test('Проверка поля Имя', async ({ page }) => {
 test('Заполнить все поля, кроме поля Имя', async ({ page }) => {
 
  //заполнить текстовые поля
- await registrationPage.textField.getByLabel(email).fill(emailValue);
- await registrationPage.textField.getByLabel(familyName).fill(nameValue);
- await registrationPage.textField.getByLabel(surname).fill(surnameValue);
- await registrationPage.textField.getByLabel(birthDate).fill(birthDateValue);
+ await registrationPage.textField.getByLabel(labels.email).fill(userData.email);
+ await registrationPage.textField.getByLabel(labels.familyName).fill(userData.name);
+ await registrationPage.textField.getByLabel(labels.surname).fill(userData.surname);
+ await registrationPage.textField.getByLabel(labels.birthDate).fill(userData.birthDate);
 
  //заполнить дропдауны
  await registrationPage.dropdownFieldClick.click();
  await expect(registrationPage.genderDropdown).toBeVisible();
- await registrationPage.dropdownChoose.filter({hasText: genderValue}).click();
+ await registrationPage.dropdownChoose.filter({hasText: userData.gender}).click();
  await registrationPage.citizenshipFieldClick.click();
- await registrationPage.dropdownField.getByLabel(citizenship).fill(citizenshipValue);
+ await registrationPage.dropdownField.getByLabel(labels.citizenship).fill(userData.citizenship);
  await registrationPage.dropdownChoose.nth(2).click()
 
  //нажать на чекбоксы

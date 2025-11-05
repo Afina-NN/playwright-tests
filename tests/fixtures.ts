@@ -1,12 +1,30 @@
 import { Locator, Page } from '@playwright/test';
 import { test, expect } from '@playwright/test';
-export { email, familyName, name, surname, birthDate, gender, citizenship, emailValue, nameValue, 
-         surnameValue, birthDateValue, genderValue, citizenshipValue, warningFieldName };
 
-const email="E-mail", familyName="Фамилия", name = "Имя", surname="Отчество", birthDate= "Дата рождения", 
-      gender="Пол", citizenship="Гражданство", emailValue = "123asd4567$@gmail.com", nameValue = "Ирина", 
-      familyNameValue = "Бугрова", surnameValue = "Анатольевна", birthDateValue = "01.01.1981", genderValue = "Женский",
-      citizenshipValue = "Россия", warningFieldName = "Введите ФИО кириллицей";
+export const userData = {
+  email: '123asd4567$@gmail.com',
+  name: 'Ирина',
+  familyName: 'Бугрова',
+  surname: 'Анатольевна',
+  birthDate: '01.01.1981',
+  gender: 'Женский',
+  citizenship: 'Россия',
+};
+
+export const labels = {
+  email: 'E-mail',
+  name: 'Имя',
+  familyName: 'Фамилия',
+  surname: 'Отчество',
+  birthDate: 'Дата рождения',
+  gender: 'Пол',
+  citizenship: 'Гражданство',
+};
+
+export const warnings = {
+  name: 'Введите ФИО кириллицей',
+};
+
 
 export class RegistrationPage {
   checkboxes: Locator;
@@ -38,29 +56,29 @@ export class RegistrationPage {
 
   async fieldsValidation() {
   //поля с заполнением
-  await expect(this.textField.getByLabel(email)).toBeVisible();
-  await expect(this.textField.getByLabel(name)).toBeVisible();
-  await expect(this.textField.getByLabel(familyName)).toBeVisible();
-  await expect(this.textField.getByLabel(surname)).toBeVisible();
-  await expect(this.textField.getByLabel(birthDate)).toBeVisible();
+  await expect(this.textField.getByLabel(labels.email)).toBeVisible();
+  await expect(this.textField.getByLabel(labels.name)).toBeVisible();
+  await expect(this.textField.getByLabel(labels.familyName)).toBeVisible();
+  await expect(this.textField.getByLabel(labels.surname)).toBeVisible();
+  await expect(this.textField.getByLabel(labels.birthDate)).toBeVisible();
   //поля с выпадашками
-  await expect(this.dropdownField.getByLabel(gender)).toBeVisible();
-  await expect(this.dropdownField.getByLabel(citizenship)).toBeVisible();
+  await expect(this.dropdownField.getByLabel(labels.gender)).toBeVisible();
+  await expect(this.dropdownField.getByLabel(labels.citizenship)).toBeVisible();
   }
 
   async fillFields() {
-  await this.textField.getByLabel(email).fill(emailValue);
-  await this.textField.getByLabel(name).fill(nameValue);
-  await this.textField.getByLabel(familyName).fill(familyNameValue);
-  await this.textField.getByLabel(surname).fill(surnameValue);
-  await this.textField.getByLabel(birthDate).fill(birthDateValue);
+  await this.textField.getByLabel(labels.email).fill(userData.email);
+  await this.textField.getByLabel(labels.name).fill(userData.name);
+  await this.textField.getByLabel(labels.familyName).fill(userData.familyName);
+  await this.textField.getByLabel(labels.surname).fill(userData.surname);
+  await this.textField.getByLabel(labels.birthDate).fill(userData.birthDate);
 
   await this.dropdownFieldClick.click();
   await expect(this.genderDropdown).toBeVisible();
-  await this.dropdownChoose.filter({hasText: genderValue}).click();
+  await this.dropdownChoose.filter({hasText: userData.gender}).click();
 
   await this.citizenshipFieldClick.click();
-  await this.dropdownField.getByLabel(citizenship).fill(citizenshipValue);
+  await this.dropdownField.getByLabel(labels.citizenship).fill(userData.citizenship);
   await this.dropdownChoose.nth(2).click()
   }
   }
