@@ -1,32 +1,35 @@
 import { Locator, Page } from '@playwright/test';
 import { test, expect } from '@playwright/test';
 
-export const userData = {
-  email: '123asd4567$@gmail.com',
-  name: 'Ирина',
-  familyName: 'Бугрова',
-  surname: 'Анатольевна',
-  birthDate: '01.01.1981',
-  gender: 'Женский',
-  citizenship: 'Россия',
-};
-
-export const labels = {
-  email: 'E-mail',
-  name: 'Имя',
-  familyName: 'Фамилия',
-  surname: 'Отчество',
-  birthDate: 'Дата рождения',
-  gender: 'Пол',
-  citizenship: 'Гражданство',
-};
+export const fields = [
+{ email: "E-mail", 
+name: "Имя", 
+familyName: "Фамилия", 
+surname: "Отчество", 
+birthDate: "Дата рождения", 
+gender: "Пол",
+citizenship: "Гражданство"},
+];
 
 export const warnings = {
   name: 'Введите ФИО кириллицей',
 };
 
+// значения полей input (текстовые поля)
+ export const registrationTestData = [
+{ testName: "все поля заполнены корректно", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: true },
+{ testName: "заполнены все поля, кроме поля Имя", email: "123asd4567$@gmail.com", username: "", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: false},
+{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "", gender: "Женский", citizenship: "Россия", expectedSuccess: false },
+];
 
-export class RegistrationPage {
+// поля input
+ export const inputLabels = [fields[0].email, fields[0].familyName, fields[0].name, fields[0].surname, fields[0].birthDate];
+
+ // поля dropdown (выпадашки)
+ export const dropdownLabels = [fields[0].gender, fields[0].citizenship];
+
+ export class RegistrationPage {
   checkboxes: Locator;
   nextstepButtonDisabled: Locator;
   textField: Locator;
@@ -38,7 +41,6 @@ export class RegistrationPage {
   fieldNameWarning: Locator;
   navigationMenu: Locator;
   nextStepButton:Locator; 
-
 
   constructor(private page: Page) {
    this.checkboxes = this.page.locator('.custom-checkbox__inner'); 
@@ -52,40 +54,6 @@ export class RegistrationPage {
    this.fieldNameWarning = this.page.locator(".auth-form__input.text-field_required.error--text");
    this.navigationMenu = this.page.locator(".auth-navigation");
    this.nextStepButton = this.page.getByRole("button").filter({hasText: "Следующий шаг"})
-  }
-
-  async fieldsValidation() {
-  //поля с заполнением
-  await expect(this.textField.getByLabel(labels.email)).toBeVisible();
-  await expect(this.textField.getByLabel(labels.name)).toBeVisible();
-  await expect(this.textField.getByLabel(labels.familyName)).toBeVisible();
-  await expect(this.textField.getByLabel(labels.surname)).toBeVisible();
-  await expect(this.textField.getByLabel(labels.birthDate)).toBeVisible();
-  //поля с выпадашками
-  await expect(this.dropdownField.getByLabel(labels.gender)).toBeVisible();
-  await expect(this.dropdownField.getByLabel(labels.citizenship)).toBeVisible();
-  }
-
-  async fillFields() {
-  await this.textField.getByLabel(labels.email).fill(userData.email);
-  await this.textField.getByLabel(labels.name).fill(userData.name);
-  await this.textField.getByLabel(labels.familyName).fill(userData.familyName);
-  await this.textField.getByLabel(labels.surname).fill(userData.surname);
-  await this.textField.getByLabel(labels.birthDate).fill(userData.birthDate);
-
-  await this.dropdownFieldClick.click();
-  await expect(this.genderDropdown).toBeVisible();
-  await this.dropdownChoose.filter({hasText: userData.gender}).click();
-
-  await this.citizenshipFieldClick.click();
-  await this.dropdownField.getByLabel(labels.citizenship).fill(userData.citizenship);
-  await this.dropdownChoose.nth(2).click()
-  }
-  }
+}
+ }
  
-
-
-
-
-
-
