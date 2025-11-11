@@ -29,7 +29,8 @@ expect(registrationPage.dropdownField.getByLabel(label)).toBeVisible();
  await expect(registrationPage.nextstepButtonDisabled).toBeVisible();
    }
   )
-  // заполнение полей: +  кейс; - кейсы с полями input
+  
+// заполнение полей: положительный кейс со всеми полями; отрицательные кейсы с полями input
 registrationTestData.forEach((data) => {
   test(`Заполнение полей: ${data.testName || 'пустой логин'}`, async ({ page }) => {
 //поля input
