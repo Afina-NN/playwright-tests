@@ -52,6 +52,7 @@ export const warnings = {
   fieldNameWarning: Locator;
   navigationMenu: Locator;
   nextStepButton:Locator; 
+  warningValidation: Locator;
 
   constructor(private page: Page) {
    this.checkboxes = this.page.locator('.custom-checkbox__inner'); 
@@ -65,6 +66,7 @@ export const warnings = {
    this.fieldNameWarning = this.page.locator(".auth-form__input.text-field_required.error--text");
    this.navigationMenu = this.page.locator(".auth-navigation");
    this.nextStepButton = this.page.getByRole("button").filter({hasText: "Следующий шаг"})
+   this.warningValidation = this.page.locator(".v-text-field__details");
 }
  }
  

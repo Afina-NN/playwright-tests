@@ -50,16 +50,17 @@ await registrationPage.dropdownChoose.nth(2).click()
 await registrationPage.checkboxes.first().check();
 await registrationPage.checkboxes.nth(1).check();
 
-// валидация
+// валидация ворнингов в негативных кейсах
 if (data.expectedSuccess==false) {
-    await expect(page.locator(".v-text-field__details").filter({ hasText: data.message })).toBeVisible();
+    await expect(registrationPage.warningValidation.filter({ hasText: data.message })).toBeVisible();
     }
 
+// валидация кнопки Следующий шаг
 if (data.expectedSuccess) {
-// кнопка Следующий шаг активна
+// активна
 await expect(registrationPage.nextstepButtonDisabled).not.toBeVisible();
 } else {
-// кнопка Следующий шаг не активна
+// не активна
 await expect(registrationPage.nextstepButtonDisabled).toBeVisible();
 }
 }
