@@ -24,6 +24,7 @@ citizenship: "Россия"
 export const warnings = {
   name: "Заполните свои ФИО",
   birthDate: "Заполните дату рождения",
+  negativeName: "Введите ФИО кириллицей",
 };
 
 // значения полей input (текстовые поля)
@@ -34,11 +35,20 @@ export const warnings = {
 { testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: values.email, username: values.familyName, familyname: values.familyName, surname: values.surname, birthName: "", gender: values.gender, citizenship: values.citizenship, message: warnings.birthDate, expectedSuccess: false },
 ];
 
+// негативные значения в поле Имя
+ export const negativeNamesValue = [
+  {testName: "Латинские буквы", value: "werehgh", warning: warnings.negativeName},
+  {testName: "Символы", value: "*№@&^", warning: warnings.negativeName},
+  {testName: "Цифры", value: "223456", warning: warnings.negativeName}
+ ]
+
+
 // поля input
  export const inputLabels = [fields.email, fields.familyName, fields.name, fields.surname, fields.birthDate];
 
  // поля dropdown (выпадашки)
  export const dropdownLabels = [fields.gender, fields.citizenship];
+
 
  export class RegistrationPage {
   checkboxes: Locator;

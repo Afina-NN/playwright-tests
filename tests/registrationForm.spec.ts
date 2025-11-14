@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { RegistrationPage, dropdownLabels, fields, inputLabels, registrationTestData } from './fixtures';
+import { RegistrationPage, dropdownLabels, fields, inputLabels, negativeNamesValue, registrationTestData } from './fixtures';
 
 let registrationPage: RegistrationPage;
 
@@ -32,7 +32,7 @@ expect(registrationPage.dropdownField.getByLabel(label)).toBeVisible();
   
 // заполнение полей: положительный кейс со всеми полями; отрицательные кейсы с полями input
 registrationTestData.forEach((data) => {
-  test(`Заполнение полей: ${data.testName || 'пустой логин'}`, async ({ page }) => {
+  test(`Заполнение полей: ${data.testName}`, async ({ page }) => {
 //поля input
 await registrationPage.textField.getByLabel(fields.email).fill(data.email)
 await registrationPage.textField.getByLabel(fields.name).fill(data.username);
@@ -68,3 +68,12 @@ await expect(registrationPage.nextstepButtonDisabled).toBeVisible();
  } 
  )
 
+// негативные тесты в поле Имя
+negativeNamesValue.forEach((data) => {
+  test(`Негативные тесты поля Имя: ${data.testName}`, async ({ page }) => {
+  await registrationPage.textField.getByLabel(fields.name).fill(data.value)
+  await expect(registrationPage.warningValidation.filter({ hasText: data.warning })).toBeVisible();  
+  }
+)
+}
+)
