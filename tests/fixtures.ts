@@ -1,33 +1,44 @@
 import { Locator, Page } from '@playwright/test';
 import { test, expect } from '@playwright/test';
 
-export const fields = [
-{ email: "E-mail", 
+export const fields = { 
+email: "E-mail", 
 name: "Имя", 
 familyName: "Фамилия", 
 surname: "Отчество", 
 birthDate: "Дата рождения", 
 gender: "Пол",
-citizenship: "Гражданство"},
-];
+citizenship: "Гражданство"
+};
+
+export const values = { 
+email: "123asd4567$@gmail.com", 
+name: "Ирина", 
+familyName: "Иванова", 
+surname: "Ивановна", 
+birthDate: "09.09.1981", 
+gender: "Женский",
+citizenship: "Россия"
+}
 
 export const warnings = {
-  name: 'Введите ФИО кириллицей',
+  name: "Заполните свои ФИО",
+  birthDate: "Заполните дату рождения",
 };
 
 // значения полей input (текстовые поля)
  export const registrationTestData = [
-{ testName: "все поля заполнены корректно", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: true },
-{ testName: "заполнены все поля, кроме поля Имя", email: "123asd4567$@gmail.com", username: "", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия",  message: "Заполните свои ФИО", expectedSuccess: false},
-{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", message: "Заполните свои ФИО", expectedSuccess: false },
-{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "", gender: "Женский", citizenship: "Россия", message: "Заполните дату рождения", expectedSuccess: false },
+{ testName: "все поля заполнены корректно", email: values.email, username: values.name, familyname: values.familyName, surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship, expectedSuccess: true },
+{ testName: "заполнены все поля, кроме поля Имя", email: values.email, username: "", familyname: values.familyName, surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship,  message: warnings.name, expectedSuccess: false},
+{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: values.email, username: values.familyName, familyname: "", surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship, message: warnings.name, expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: values.email, username: values.familyName, familyname: values.familyName, surname: values.surname, birthName: "", gender: values.gender, citizenship: values.citizenship, message: warnings.birthDate, expectedSuccess: false },
 ];
 
 // поля input
- export const inputLabels = [fields[0].email, fields[0].familyName, fields[0].name, fields[0].surname, fields[0].birthDate];
+ export const inputLabels = [fields.email, fields.familyName, fields.name, fields.surname, fields.birthDate];
 
  // поля dropdown (выпадашки)
- export const dropdownLabels = [fields[0].gender, fields[0].citizenship];
+ export const dropdownLabels = [fields.gender, fields.citizenship];
 
  export class RegistrationPage {
   checkboxes: Locator;

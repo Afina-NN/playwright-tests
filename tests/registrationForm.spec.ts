@@ -34,17 +34,17 @@ expect(registrationPage.dropdownField.getByLabel(label)).toBeVisible();
 registrationTestData.forEach((data) => {
   test(`Заполнение полей: ${data.testName || 'пустой логин'}`, async ({ page }) => {
 //поля input
-await registrationPage.textField.getByLabel(fields[0].email).fill(data.email)
-await registrationPage.textField.getByLabel(fields[0].name).fill(data.username);
-await registrationPage.textField.getByLabel(fields[0].familyName).fill(data.familyname);
-await registrationPage.textField.getByLabel(fields[0].surname).fill(data.surname);
-await registrationPage.textField.getByLabel(fields[0].birthDate).fill(data.birthName);
+await registrationPage.textField.getByLabel(fields.email).fill(data.email)
+await registrationPage.textField.getByLabel(fields.name).fill(data.username);
+await registrationPage.textField.getByLabel(fields.familyName).fill(data.familyname);
+await registrationPage.textField.getByLabel(fields.surname).fill(data.surname);
+await registrationPage.textField.getByLabel(fields.birthDate).fill(data.birthName);
 //выпадашки
 await registrationPage.dropdownFieldClick.click();
 await expect(registrationPage.genderDropdown).toBeVisible();
 await registrationPage.dropdownChoose.filter({hasText: data.gender}).click();
 await registrationPage.citizenshipFieldClick.click();
-await registrationPage.dropdownField.getByLabel(fields[0].citizenship).fill(data.citizenship);
+await registrationPage.dropdownField.getByLabel(fields.citizenship).fill(data.citizenship);
 await registrationPage.dropdownChoose.nth(2).click()
 //чекбоксы
 await registrationPage.checkboxes.first().check();
