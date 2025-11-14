@@ -18,9 +18,9 @@ export const warnings = {
 // значения полей input (текстовые поля)
  export const registrationTestData = [
 { testName: "все поля заполнены корректно", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: true },
-{ testName: "заполнены все поля, кроме поля Имя", email: "123asd4567$@gmail.com", username: "", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: false},
-{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", expectedSuccess: false },
-{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "", gender: "Женский", citizenship: "Россия", expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля Имя", email: "123asd4567$@gmail.com", username: "", familyname: "Иванова", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия",  message: "Заполните свои ФИО", expectedSuccess: false},
+{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "", surname: "Ивановна", birthName: "09.09.2000", gender: "Женский", citizenship: "Россия", message: "Заполните свои ФИО", expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: "123asd4567$@gmail.com", username: "Ирина", familyname: "Иванова", surname: "Ивановна", birthName: "", gender: "Женский", citizenship: "Россия", message: "Заполните дату рождения", expectedSuccess: false },
 ];
 
 // поля input

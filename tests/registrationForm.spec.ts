@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { RegistrationPage, dropdownLabels, fields, inputLabels, registrationTestData } from './DDB_fixtures';
+import { RegistrationPage, dropdownLabels, fields, inputLabels, registrationTestData } from './fixtures';
 
 let registrationPage: RegistrationPage;
 
@@ -49,6 +49,11 @@ await registrationPage.dropdownChoose.nth(2).click()
 //чекбоксы
 await registrationPage.checkboxes.first().check();
 await registrationPage.checkboxes.nth(1).check();
+
+// валидация
+if (data.expectedSuccess==false) {
+    await expect(page.locator(".v-text-field__details").filter({ hasText: data.message })).toBeVisible();
+    }
 
 if (data.expectedSuccess) {
 // кнопка Следующий шаг активна
