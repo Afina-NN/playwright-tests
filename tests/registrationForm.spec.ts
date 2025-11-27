@@ -30,7 +30,8 @@ expect(registrationPage.dropdownField.getByLabel(label)).toBeVisible();
    }
   )
   
-// заполнение полей: положительный кейс со всеми полями; отрицательные кейсы с полями input
+// заполнение полей: положительный кейс со всеми полями; отрицательные кейсы  - пустые поля input
+test.describe('Заполнение полей', () => {
 registrationTestData.forEach((data) => {
   test(`Заполнение полей: ${data.testName}`, async ({ page }) => {
 //поля input
@@ -67,13 +68,18 @@ await expect(registrationPage.nextstepButtonDisabled).toBeVisible();
  )
  } 
  )
+}
+)
 
 // негативные тесты в поле Имя
+test.describe('Негативные тесты поля Имя', () => {
 negativeNamesValue.forEach((data) => {
   test(`Негативные тесты поля Имя: ${data.testName}`, async ({ page }) => {
   await registrationPage.textField.getByLabel(fields.name).fill(data.value)
   await expect(registrationPage.warningValidation.filter({ hasText: data.warning })).toBeVisible();  
   }
+)
+}
 )
 }
 )

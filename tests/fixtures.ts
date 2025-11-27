@@ -31,8 +31,8 @@ export const warnings = {
  export const registrationTestData = [
 { testName: "все поля заполнены корректно", email: values.email, username: values.name, familyname: values.familyName, surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship, expectedSuccess: true },
 { testName: "заполнены все поля, кроме поля Имя", email: values.email, username: "", familyname: values.familyName, surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship,  message: warnings.name, expectedSuccess: false},
-{ testName: "заполнены все поля, кроме поля, кроме поля Фамилия", email: values.email, username: values.familyName, familyname: "", surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship, message: warnings.name, expectedSuccess: false },
-{ testName: "заполнены все поля, кроме поля, кроме поля Дата рождения", email: values.email, username: values.familyName, familyname: values.familyName, surname: values.surname, birthName: "", gender: values.gender, citizenship: values.citizenship, message: warnings.birthDate, expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля Фамилия", email: values.email, username: values.familyName, familyname: "", surname: values.surname, birthName: values.birthDate, gender: values.gender, citizenship: values.citizenship, message: warnings.name, expectedSuccess: false },
+{ testName: "заполнены все поля, кроме поля Дата рождения", email: values.email, username: values.familyName, familyname: values.familyName, surname: values.surname, birthName: "", gender: values.gender, citizenship: values.citizenship, message: warnings.birthDate, expectedSuccess: false },
 ];
 
 // негативные значения в поле Имя
