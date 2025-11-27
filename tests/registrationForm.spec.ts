@@ -5,7 +5,7 @@ let registrationPage: RegistrationPage;
 
   
 test.beforeEach(async ({ page }) => {
-await page.goto('https://pk.hse.ru/auth/register');
+await page.goto('');
 registrationPage = new RegistrationPage(page);
   });
 
