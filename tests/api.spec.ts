@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 
 let userid = "string";
 
+
+// проект учебный, коммерческого опыта написания API нет
  test('Create_User' , async ({ request }) => {
  const response = await request.post('https://petstore.swagger.io/v2/user', 
     { 
