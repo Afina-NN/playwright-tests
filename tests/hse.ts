@@ -71,6 +71,22 @@ export const fillFields = [
     {testName: ", кроме поля Дата Рождения", email: fieldsValue.email, secondname: fieldsValue.secondname, name: fieldsValue.name, surname: fieldsValue.surname, birthdate: "", warning: "Заполните свои ФИО", expectedResult: true},
 ]
 
+// негативные кейсы поля Дата рождения
+export const fillBirthdateField = [
+{testName: "неверное число ", value: "32.10.2000", warning: "Неверный формат даты"},
+{testName: "неверный месяц ", value: "31.13.2000", warning: "Неверный формат даты"},
+{testName: "заполнено только число ", value: "31", warning: "Неверный формат даты"},
+{testName: "год выше допустимого", value: "31.10.2012", warning: "Неверный формат даты"},
+{testName: "год ниже допустимого", value: "24.01.1909", warning: "Неверный формат даты"},
+{testName: "дата начинается с года", value: "1981.09.09", warning: "Неверный формат даты"},
+]
+
+// заполнить все поля, кроме поля Пол
+export const fillWithoutGender = [
+{label: fieldsName.email, value: fieldsValue.email},
+{label: fieldsName.secondname, value: fieldsValue.secondname},
+{label: fieldsName.name, value: fieldsValue.name},
+]
 export class RegistrationPage {
 checkBoxcheck: Locator;
 

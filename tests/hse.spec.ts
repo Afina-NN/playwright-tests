@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import {dropdownField, emptyFieldsValidation, fieldsName, fieldsValue, fillFields, locator, RegistrationPage, value } from './hse';
+import {dropdownField, emptyFieldsValidation, fieldsName, fieldsValue, fillBirthdateField, fillFields, locator, RegistrationPage, value } from './hse';
 
 let registrationPage: RegistrationPage;
 
@@ -54,6 +54,15 @@ test(`Поля заполнены ${element.testName}`, async ({ page }) => {
    }
 
   })
+})
+})
+
+test.describe('Негативные кейсы на поле Дата рождения', () => {
+fillBirthdateField.forEach(element=>{
+test(`Негативный кейс поля дата рождения: ${element.testName}`, async ({ page }) => {
+ await page.getByLabel(fieldsName.birthdate).fill(element.value);
+ await expect(page.getByRole("alert").filter({hasText: element.warning})).toBeVisible();
+})
 })
 })
 
