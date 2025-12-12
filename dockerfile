@@ -1,5 +1,5 @@
 # Используем официальный образ Playwright, уже настроенный
-FROM mcr.microsoft.com/playwright:v1.35.0-focal
+FROM mcr.microsoft.com/playwright:v1.56.1-focal
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
