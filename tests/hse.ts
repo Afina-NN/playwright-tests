@@ -1,5 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 
+const alphabet = "абвгдежзклмнопрстуфхцчэюя"
+const ind = Math.ceil((Math.random()*10));
+
 // название поля
 export const fieldsName = {
     email: "E-mail",
@@ -14,8 +17,8 @@ export const fieldsName = {
 // значения поля
 export const fieldsValue = {
 email: `${Math.floor(Math.random() * 1000)}@gmail.com`,
-secondname: "Иванова",
-name: "Нина",
+secondname: "Иванов".concat(alphabet[ind]),
+name: "Нин".concat(alphabet[ind]),
 surname: "Ивановна",
 birthdate: "09.09.1981",
 gender: "Женский",
