@@ -15,19 +15,20 @@ export const fieldsName = {
 }
 
 // значения поля
-export const fieldsValue = {
-email: `${Math.floor(Math.random() * 1000)}@gmail.com`,
-secondname: "Иванов".concat(alphabet[ind]),
-name: "Нин".concat(alphabet[ind]),
-surname: "Ивановна",
-birthdate: "09.09.1981",
-gender: "Женский",
-citizenship: "Россия",
-}
+export const values = {
+    fields: {
+        email: `${Math.floor(Math.random() * 1000)}@gmail.com`,
+        secondname: "Иванов".concat(alphabet[ind]),
+        name: "Нин".concat(alphabet[ind]),
+        surname: "Ивановна",
+        birthdate: "09.09.1981",
+        gender: "Женский",
+        citizenship: "Россия",
+},
+    warning: {
+        date: "Неверный формат даты",
+    }
 
-// флаги
-export const flag = {
-    active: ".v-label--active",
 }
 
 // локаторы
@@ -47,6 +48,9 @@ export const locator = {
             gender: ".v-list-item--link",
             citizenship: ".v-list-item__content",
         }
+    },
+    flag: {
+            active: ".v-label--active",
     }
 }
 
@@ -56,39 +60,39 @@ export const value = {
 
 //валидация того, что поля не заполнены
 export const emptyFieldsValidation=[
-    {name: fieldsName.email, flag: flag.active},
-    {name: fieldsName.secondname, flag: flag.active},
-    {name: fieldsName.name, flag: flag.active},
-    {name: fieldsName.surname, flag: flag.active},
-    {name: fieldsName.birthdate, flag: flag.active},
-    {name: fieldsName.gender, flag: flag.active},
-    {name: fieldsName.citizenship, flag: flag.active},
+    {name: fieldsName.email, flag: locator.flag.active},
+    {name: fieldsName.secondname, flag: locator.flag.active},
+    {name: fieldsName.name, flag: locator.flag.active},
+    {name: fieldsName.surname, flag: locator.flag.active},
+    {name: fieldsName.birthdate, flag: locator.flag.active},
+    {name: fieldsName.gender, flag: locator.flag.active},
+    {name: fieldsName.citizenship, flag: locator.flag.active},
 ]
 
 // заполнить поля input
 export const fillFields = [
-    {testName: "все ", email: fieldsValue.email, secondname: fieldsValue.secondname, name: fieldsValue.name, surname: fieldsValue.surname, birthdate: fieldsValue.birthdate, expectedResult: true},
-    {testName: ", кроме поля почта", email: "", secondname: fieldsValue.secondname, name: fieldsValue.name, surname: fieldsValue.surname, birthdate: fieldsValue.birthdate, warning: "Заполните E-mail", expectedResult: true},
-    {testName: ", кроме поля Фамилия", email: fieldsValue.email, secondname: "", name: fieldsValue.name, surname: fieldsValue.surname, birthdate: fieldsValue.birthdate, warning: "Заполните свои ФИО", expectedResult: true},
-    {testName: ", кроме поля Имя", email: fieldsValue.email, secondname: fieldsValue.secondname, name: "", surname: fieldsValue.surname, birthdate: fieldsValue.birthdate, warning: "Заполните свои ФИО", expectedResult: true},
-    {testName: ", кроме поля Дата Рождения", email: fieldsValue.email, secondname: fieldsValue.secondname, name: fieldsValue.name, surname: fieldsValue.surname, birthdate: "", warning: "Заполните свои ФИО", expectedResult: true},
+    {testName: "все ", email: values.fields.email, secondname: values.fields.secondname, name: values.fields.name, surname: values.fields.surname, birthdate: values.fields.birthdate, expectedResult: true},
+    {testName: ", кроме поля почта", email: "", secondname: values.fields.secondname, name: values.fields.name, surname: values.fields.surname, birthdate:values.fields.birthdate, warning: "Заполните E-mail", expectedResult: true},
+    {testName: ", кроме поля Фамилия", email: values.fields.email, secondname: "", name: values.fields.name, surname: values.fields.surname, birthdate: values.fields.birthdate, warning: "Заполните свои ФИО", expectedResult: true},
+    {testName: ", кроме поля Имя", email: values.fields.email, secondname: values.fields.secondname, name: "", surname: values.fields.surname, birthdate: values.fields.birthdate, warning: "Заполните свои ФИО", expectedResult: true},
+    {testName: ", кроме поля Дата Рождения", email: values.fields.email, secondname: values.fields.secondname, name: values.fields.name, surname: values.fields.surname, birthdate: "", warning: "Заполните свои ФИО", expectedResult: true},
 ]
 
 // негативные кейсы поля Дата рождения
 export const fillBirthdateField = [
-{testName: "неверное число ", value: "32.10.2000", warning: "Неверный формат даты"},
-{testName: "неверный месяц ", value: "31.13.2000", warning: "Неверный формат даты"},
-{testName: "заполнено только число ", value: "31", warning: "Неверный формат даты"},
-{testName: "год выше допустимого", value: "31.10.2012", warning: "Неверный формат даты"},
-{testName: "год ниже допустимого", value: "24.01.1909", warning: "Неверный формат даты"},
-{testName: "дата начинается с года", value: "1981.09.09", warning: "Неверный формат даты"},
+{testName: "неверное число ", value: "32.10.2000", warning: values.warning.date},
+{testName: "неверный месяц ", value: "31.13.2000", warning: values.warning.date},
+{testName: "заполнено только число ", value: "31", warning: values.warning.date},
+{testName: "год выше допустимого", value: "31.10.2012", warning: values.warning.date},
+{testName: "год ниже допустимого", value: "24.01.1909", warning: values.warning.date},
+{testName: "дата начинается с года", value: "1981.09.09", warning: values.warning.date},
 ]
 
 // заполнить все поля, кроме поля Пол
 export const fillWithoutGender = [
-{label: fieldsName.email, value: fieldsValue.email},
-{label: fieldsName.secondname, value: fieldsValue.secondname},
-{label: fieldsName.name, value: fieldsValue.name},
+{label: fieldsName.email, value: values.fields.email},
+{label: fieldsName.secondname, value: values.fields.secondname},
+{label: fieldsName.name, value: values.fields.name},
 ]
 export class RegistrationPage {
 checkBoxcheck: Locator;

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import {dropdownField, emptyFieldsValidation, fieldsName, fieldsValue, fillBirthdateField, fillFields, locator, RegistrationPage, value } from './hse';
+import {dropdownField, emptyFieldsValidation, fieldsName, fillBirthdateField, fillFields, locator, RegistrationPage, value, values } from './hse';
 
 let registrationPage: RegistrationPage;
 
@@ -17,13 +17,13 @@ expect(page.getByLabel(element.name).locator(element.flag)).not.toBeVisible();
 })
 // валидация чекбоксов
 test.step("Пустые чекбоксы" , async () => {
-await expect(registrationPage.checkBoxcheck.first()).not.toBeChecked()
-await expect(registrationPage.checkBoxcheck.nth(1)).not.toBeChecked()
+await expect(registrationPage.checkBoxcheck.first()).not.toBeChecked();
+await expect(registrationPage.checkBoxcheck.nth(1)).not.toBeChecked();
 }
 )
 // валидация кнопки Следующий шаг
 test.step("Кнопка Следующий шаг неактивна" , async () => {
-await expect(page.getByRole("button", {name: value.nextStepButton}).locator(locator.button.disabled)).not.toBeVisible();
+await expect(page.getByRole("button", {name: value.nextStepButton})).toBeDisabled();
 }
 )
 }
@@ -39,8 +39,8 @@ test(`Поля заполнены ${element.testName}`, async ({ page }) => {
  await page.getByLabel(fieldsName.birthdate).fill(element.birthdate);
 
  // заполнение выпадашек
- await dropdownField(page, locator.dropdown.select.gender, fieldsName.gender, locator.dropdown.item.gender, fieldsValue.gender);
- await dropdownField(page, locator.dropdown.select.citizenship, fieldsName.citizenship, locator.dropdown.item.citizenship, fieldsValue.citizenship);
+ await dropdownField(page, locator.dropdown.select.gender, fieldsName.gender, locator.dropdown.item.gender, values.fields.gender);
+ await dropdownField(page, locator.dropdown.select.citizenship, fieldsName.citizenship, locator.dropdown.item.citizenship, values.fields.citizenship);
 
  // заполнение чекбоксов
  await registrationPage.checkBoxcheck.first().click();
