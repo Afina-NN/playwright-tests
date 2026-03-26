@@ -1,6 +1,6 @@
 
 # Playwright
-node_modules/
+/node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
@@ -8,3 +8,7 @@ node_modules/
 /playwright/.auth/
 /allure-results/
 /allure-report/
+/.prettierignore/
+/.prettierrc/
+/eslint.config.mts/
+/.env/
