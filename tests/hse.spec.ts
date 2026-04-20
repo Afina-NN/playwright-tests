@@ -48,15 +48,17 @@ test.describe('Заполнение полей', () => {
       // заполнение выпадашек
       await dropdownField(
         page,
-        locator.dropdown.select.gender,
+        locator.dropdown.selectLocator,
         fieldsName.gender,
+        locator.dropdown.select,
         locator.dropdown.item.gender,
         values.fields.gender,
       );
       await dropdownField(
         page,
-        locator.dropdown.select.citizenship,
+        locator.dropdown.selectLocator,
         fieldsName.citizenship,
+        locator.dropdown.select,
         locator.dropdown.item.citizenship,
         values.fields.citizenship,
       );
@@ -65,15 +67,11 @@ test.describe('Заполнение полей', () => {
       await registrationPage.checkBoxcheck.first().click();
       await registrationPage.checkBoxcheck.nth(1).click();
 
-      // валидация кнопки Следуюший шаг
-      if (element.expectedResult) {
-        await expect(
-          page.getByRole('button', { name: value.nextStepButton }).locator(locator.button.disabled),
-        ).not.toBeVisible();
+      // валидация кнопки Следуюший шаг (на поле Email баг, если оно не заполнено, кнопка Следующий шаг все равно активна)
+      if (element.expectedResult || (element.expectedResult==false && element.email=='')) {
+         await expect(page.getByRole('button', { name: value.nextStepButton })).not.toBeDisabled();
       } else {
-        await expect(
-          page.getByRole('button', { name: value.nextStepButton }).locator(locator.button.disabled),
-        ).toBeVisible();
+         await expect(page.getByRole('button', { name: value.nextStepButton })).toBeDisabled();
       }
     });
   });

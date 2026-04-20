@@ -47,10 +47,8 @@ export const locator = {
     disabled: "//button[@disabled='disabled']",
   },
   dropdown: {
-    select: {
-      gender: '.select-register.select-gender',
-      citizenship: '.select-register-citizenship',
-    },
+    selectLocator: ".v-select__slot",
+    select: '.v-input__icon.v-input__icon--append',
     item: {
       gender: '.v-list-item--link',
       citizenship: '.v-list-item__content',
@@ -95,7 +93,7 @@ export const fillFields = [
     surname: values.fields.surname,
     birthdate: values.fields.birthdate,
     warning: 'Заполните E-mail',
-    expectedResult: true,
+    expectedResult: false,
   },
   {
     testName: ', кроме поля Фамилия',
@@ -105,7 +103,7 @@ export const fillFields = [
     surname: values.fields.surname,
     birthdate: values.fields.birthdate,
     warning: 'Заполните свои ФИО',
-    expectedResult: true,
+    expectedResult: false,
   },
   {
     testName: ', кроме поля Имя',
@@ -115,7 +113,7 @@ export const fillFields = [
     surname: values.fields.surname,
     birthdate: values.fields.birthdate,
     warning: 'Заполните свои ФИО',
-    expectedResult: true,
+    expectedResult: false,
   },
   {
     testName: ', кроме поля Дата Рождения',
@@ -125,7 +123,7 @@ export const fillFields = [
     surname: values.fields.surname,
     birthdate: '',
     warning: 'Заполните свои ФИО',
-    expectedResult: true,
+    expectedResult: false,
   },
 ];
 
@@ -137,6 +135,7 @@ export const fillBirthdateField = [
   { testName: 'год выше допустимого', value: '31.10.2012', warning: values.warning.date },
   { testName: 'год ниже допустимого', value: '24.01.1909', warning: values.warning.date },
   { testName: 'дата начинается с года', value: '1981.09.09', warning: values.warning.date },
+  { testName: 'везде 0', value: '00.00.00', warning: values.warning.date },
 ];
 
 // заполнить все поля, кроме поля Пол
@@ -151,9 +150,10 @@ export async function dropdownField(
   page: Page,
   selectLocator: string,
   selectText: string,
+  selectItem: string,
   itemLocator: string,
   itemText: string,
 ) {
-  await page.locator(selectLocator).filter({ hasText: selectText }).click();
+  await page.locator(selectLocator).filter({ hasText: selectText }).locator(selectItem).click();
   await page.locator(itemLocator).filter({ hasText: itemText }).click();
 }
