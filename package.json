@@ -12,12 +12,13 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
-    "@types/node": "^24.9.1",
+    "@types/node": "^24.12.2",
     "allure-playwright": "^3.4.1",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "prettier": "3.8.1",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1"
   },
   "dependencies": {
