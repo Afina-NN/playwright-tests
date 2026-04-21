@@ -1,13 +1,5 @@
 import { Locator, Page } from '@playwright/test';
 
-export class RegistrationPage {
-  checkBoxcheck: Locator;
-
-  constructor(private page: Page) {
-    this.checkBoxcheck = this.page.locator(locator.checkbox.check);
-  }
-}
-
 const alphabet: string = 'абвгдежзклмнопрстуфхцчэюя';
 const ind: number = Math.ceil(Math.random() * 10);
 
@@ -25,7 +17,7 @@ export const fieldsName = {
 // значения поля
 export const values = {
   fields: {
-    email: `${Math.floor(Math.random() * 1000)}@gmail.com`,
+    email: getRandomEmail(),
     secondname: 'Иванов'.concat(alphabet[ind]),
     name: 'Нин'.concat(alphabet[ind]),
     surname: 'Ивановна',
@@ -75,6 +67,56 @@ export const emptyFieldsValidation = [
 ];
 
 // заполнить поля input
+export const fillFieldsPositive = [
+    {
+    testName: 'все ',
+    email: values.fields.email,
+    secondname: values.fields.secondname,
+    name: values.fields.name,
+    surname: values.fields.surname,
+    birthdate: values.fields.birthdate,
+  },
+]
+
+export const fillFieldsNegative = [
+   {
+    testName: ', кроме поля почта',
+    email: '',
+    secondname: values.fields.secondname,
+    name: values.fields.name,
+    surname: values.fields.surname,
+    birthdate: values.fields.birthdate,
+    warning: 'Заполните E-mail',
+  },
+  {
+    testName: ', кроме поля Фамилия',
+    email: values.fields.email,
+    secondname: '',
+    name: values.fields.name,
+    surname: values.fields.surname,
+    birthdate: values.fields.birthdate,
+    warning: 'Заполните свои ФИО',
+  },
+  {
+    testName: ', кроме поля Имя',
+    email: values.fields.email,
+    secondname: values.fields.secondname,
+    name: '',
+    surname: values.fields.surname,
+    birthdate: values.fields.birthdate,
+    warning: 'Заполните свои ФИО',
+  },
+  {
+    testName: ', кроме поля Дата Рождения',
+    email: values.fields.email,
+    secondname: values.fields.secondname,
+    name: values.fields.name,
+    surname: values.fields.surname,
+    birthdate: '',
+    warning: 'Заполните свои ФИО',
+  },
+]
+
 export const fillFields = [
   {
     testName: 'все ',

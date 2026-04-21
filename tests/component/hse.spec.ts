@@ -5,11 +5,14 @@ import {
   fieldsName,
   fillBirthdateField,
   fillFields,
+  fillFieldsNegative,
+  fillFieldsPositive,
   locator,
-  RegistrationPage,
   value,
   values,
 } from './hse';
+import { RegistrationPage } from '../../pages/registration-page';
+import { User } from '../../models/registration-user';
 
 let registrationPage: RegistrationPage;
 
@@ -24,6 +27,15 @@ test('Валидация того, что все поля по дефолту п
     test.step(`Пустое поле ${element.name}`, async () => {
       expect(page.getByLabel(element.name).locator(element.flag)).not.toBeVisible();
     });
+
+    const testUser: User = {
+      email: '',
+      lastname: 'string',
+      name: 'string',
+      surname: 'string',
+    };
+
+    registrationPage.registerUser(testUser)
   });
   // валидация чекбоксов
   test.step('Пустые чекбоксы', async () => {
@@ -37,7 +49,7 @@ test('Валидация того, что все поля по дефолту п
 });
 
 test.describe('Заполнение полей', () => {
-  fillFields.forEach((element) => {
+  fillFieldsPositive.forEach((element) => {
     test(`Поля заполнены ${element.testName}`, async ({ page }) => {
       await page.getByLabel(fieldsName.email).fill(element.email);
       await page.getByLabel(fieldsName.secondname).fill(element.secondname);
@@ -67,12 +79,41 @@ test.describe('Заполнение полей', () => {
       await registrationPage.checkBoxcheck.first().click();
       await registrationPage.checkBoxcheck.nth(1).click();
 
-      // валидация кнопки Следуюший шаг (на поле Email баг, если оно не заполнено, кнопка Следующий шаг все равно активна)
-      if (element.expectedResult || (element.expectedResult==false && element.email=='')) {
-         await expect(page.getByRole('button', { name: value.nextStepButton })).not.toBeDisabled();
-      } else {
-         await expect(page.getByRole('button', { name: value.nextStepButton })).toBeDisabled();
-      }
+      await expect(page.getByRole('button', { name: value.nextStepButton })).not.toBeDisabled();
+    });
+  });
+
+  fillFieldsNegative.forEach((element) => {
+    test(`Поля заполнены ${element.testName}`, async ({ page }) => {
+      await page.getByLabel(fieldsName.email).fill(element.email);
+      await page.getByLabel(fieldsName.secondname).fill(element.secondname);
+      await page.getByLabel(fieldsName.name).fill(element.name);
+      await page.getByLabel(fieldsName.surname).fill(element.surname);
+      await page.getByLabel(fieldsName.birthdate).fill(element.birthdate);
+
+      // заполнение выпадашек
+      await dropdownField(
+        page,
+        locator.dropdown.selectLocator,
+        fieldsName.gender,
+        locator.dropdown.select,
+        locator.dropdown.item.gender,
+        values.fields.gender,
+      );
+      await dropdownField(
+        page,
+        locator.dropdown.selectLocator,
+        fieldsName.citizenship,
+        locator.dropdown.select,
+        locator.dropdown.item.citizenship,
+        values.fields.citizenship,
+      );
+
+      // заполнение чекбоксов
+      await registrationPage.checkBoxcheck.first().click();
+      await registrationPage.checkBoxcheck.nth(1).click();
+
+      await expect(page.getByRole('button', { name: value.nextStepButton })).toBeDisabled();
     });
   });
 });
@@ -81,7 +122,9 @@ test.describe('Негативные кейсы на поле Дата рожде
   fillBirthdateField.forEach((element) => {
     test(`Негативный кейс поля дата рождения: ${element.testName}`, async ({ page }) => {
       await page.getByLabel(fieldsName.birthdate).fill(element.value);
-      await expect(page.getByRole('alert').filter({ hasText: element.warning })).toBeVisible();
+      await expect(
+        page.getByRole('alert').filter({ hasText: 'Неверный формат даты' }),
+      ).toBeVisible();
     });
   });
 });
