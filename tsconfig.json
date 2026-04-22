@@ -2,12 +2,12 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "target": "es6",            // или другой уровень, по вашему предпочтению
+    "target": "es2017",            // или другой уровень, по вашему предпочтению
     "module": "commonjs",       // тип модуля
     "strict": true,             // строгий режим (по желанию)
     "esModuleInterop": true,    // для совместимости с модулями ES
     "types": ["node"],          // указываем использовать типы Node.js
     "outDir": "./dist"          // папка для скомпилированных файлов (по желанию)
   },
-  "include": ["**/*.ts"]           // папки, включённые в проект
+  "include": ["**/*.ts", "pages"]           // папки, включённые в проект
 }
