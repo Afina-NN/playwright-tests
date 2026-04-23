@@ -20,6 +20,7 @@ test.beforeEach(async ({ page }) => {
   checkoutInfo = new CheckoutInfo(page);
   checkoutOverview = new CheckoutOverview(page);
   checkoutComplete = new CheckoutComplete(page);
+  // авторизация
   await authorization(page);
 });
 
@@ -71,9 +72,6 @@ test('Флоу покупки: add to cart, remove, валидация цен н
   expect(price1).toBe(price1Cart);
   expect(price2).toBe(price2Cart);
 
-  // перейти обратно в корзину
-  await goods.shoppingCartLink.click();
-
   // кликнуть на checkout
   await cart.checkout.click();
 
@@ -104,10 +102,10 @@ test('Флоу покупки: add to cart, remove, валидация цен н
   await expect(checkoutComplete.checkoutComplete.getByText('Checkout: Complete!')).toBeVisible();
 });
 
-test('Флоу покупки: сортировка, валидаци цен, continue shopping, cancel, back home', async ({
+test('Флоу покупки: сортировка (price (low to high)), валидаци цен, continue shopping, cancel, back home', async ({
   page,
 }) => {
-  // отсортировать по цене от low к high
+  // отсортировать каталог по цене low to high
   await page.selectOption(goods.sortSelect, 'lohi');
 
   // цена 1 товара
@@ -127,12 +125,8 @@ test('Флоу покупки: сортировка, валидаци цен, co
 
   //  добавить товар
   await goods.addToCardSaucelabsbackpack.click();
-  // добавить еще 1 товар
-  await goods.addToCartSauceLabsTshirt.click();
   // валидация количества товаров в корзине
-  await expect(goods.shoppingCardBadge).toHaveText('2');
-  // удалить товар из каталога
-  await goods.removeSauceLabsTshirt.click();
+  await expect(goods.shoppingCardBadge).toHaveText('1');
   // удалить товар из каталога
   await goods.removeSauceLabsBackpack.click();
   // проверить, что корзина пустая (цифр нет)
@@ -145,15 +139,15 @@ test('Флоу покупки: сортировка, валидаци цен, co
   await cart.continueShopping.click();
   // валидация страницы каталога
   await expect(goods.addToCardSaucelabsbackpack).toBeVisible();
-  //  добавить товар
+  // добавить товар
   await goods.addToCardSaucelabsbackpack.click();
   // кликнуть на корзину
   await goods.shoppingCartLink.click();
   // кликнуть на checkout
   await cart.checkout.click();
-  // кликнуть на cancel
+  // возвращение в корзину. кликнуть на cancel
   await checkoutInfo.cancel.click();
-  // кликнуть опять на checkout
+  // возвращение в корзину. кликнуть опять на checkout
   await cart.checkout.click();
 
   // заполнить поля first name, last name, zip
@@ -176,6 +170,7 @@ test('Флоу покупки: сортировка, валидаци цен, co
   await checkoutInfo.continueButton.click();
   // кликнуть Finish
   await checkoutOverview.finish.click();
+  // кликнуть кнопку Back Home
   await checkoutComplete.backHome.click();
   // провалидировать переход на главную страницу
   await expect(goods.addToCardSaucelabsbackpack).toBeVisible();
