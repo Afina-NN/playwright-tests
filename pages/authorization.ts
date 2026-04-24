@@ -15,7 +15,7 @@ export class Authorization {
 }
 
 export async function authorization(page: Page) {
-  await page.goto('https://www.saucedemo.com/');
+  await page.goto("./");
   const authorizationPage = new Authorization(page);
   const goods = new Goods(page);
   // заполнить username
