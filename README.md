@@ -1,16 +1,30 @@
 <!-- 1. UI-автотесты 
 
     1.1 demo.spec.ts - два e2e автотеста на интернет-магазин
-    1.2 фикстуры лежат в папке pages, константы в папке constants/ui.ts
+    1.2 фикстуры лежат в папке pages, константы в папке constants
 
 2. API-автотесты
 
-    2.1 api.spec.ts - два автотеста - на get и на post - c подключением библиотеки zod для валидации типов и файла .env (логин и пароль не попадут в репозиторий)
-    2.2 константы лежат в папке constants/api.ts
+tests/
+└── API1/
+    ├── requests/
+    │   ├── authorisation.ts
+    │   └── service.ts
+    ├── schema/
+    │   └── s.authorization.ts
+    ├── tests/
+    │   ├── authorization.spec.ts
+    │   └── service.spec.ts
+    └── common.ts
 
-3. .gitignore - файл, в котором прописано, что не надо добавлять в git
 
-4. К проекту прикручен отчет Allure
+    2.1 Для валидационных схем используется библиотека zod
 
-5. Добавлены плагины Prettier ESlint и Prettier Code formatter
+3. Используется .env (логин и пароль не попадут в репозиторий)
+
+4. .gitignore - файл, в котором прописано, что не надо добавлять в git
+
+5. К проекту прикручен отчет Allure
+
+6. Добавлены плагины Prettier ESlint и Prettier Code formatter
 
